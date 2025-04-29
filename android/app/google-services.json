@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617292015522",
+    "project_id": "chron-sec",
+    "storage_bucket": "chron-sec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617292015522:android:83303bfea655d26aefb4fb",
+        "android_client_info": {
+          "package_name": "com.example.crohn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgNFel_3wX-KUFLHGdmthVGlw4tRpe58g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
