@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'doctor_card.dart';
 import 'category_card.dart';
-import 'new_page.dart';
 import 'package:crohn/screens/startup/welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -45,13 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  void navigateToNewPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const NewPage()),
-    );
-  }
-
   void logout() {
     Navigator.pushReplacement(
       context,
@@ -60,19 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _filterSearch(String query) {
-    _searchTimer?.cancel(); // Cancel previous timer
+    _searchTimer?.cancel();
     if (query.isEmpty) {
       setState(() => filteredItems.clear());
       return;
     }
-
     setState(() {
       filteredItems = searchItems
           .where((item) => item.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
-
-    // Start timer to clear results after delay
     _searchTimer = Timer(const Duration(seconds: 2), () {
       setState(() => filteredItems.clear());
     });
@@ -82,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: const Color(0xFFF4F9F9),
       drawer: Drawer(
         child: Column(
           children: [
@@ -90,9 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(color: Colors.blue[300]),
               accountName: Text(widget.userName),
               accountEmail: const Text('example@email.com'),
-              currentAccountPicture: CircleAvatar(
+              currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,
-                child: Icon(Icons.person, size: 60, color: Colors.blue[700]),
+                child: Icon(Icons.person, size: 60, color: Colors.blue),
               ),
             ),
             ListTile(
@@ -115,38 +104,22 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: const Text(
-          'CROHN',
+          'HELLO_CROHN',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.blue,
             fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade100,
-              shape: BoxShape.circle,
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 8,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            child: const Icon(Icons.person, color: Colors.black87, size: 28),
-          ),
-          onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
-          },
+          icon: Icon(Icons.menu, color: Colors.blue[900]),
+          onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, color: Colors.black),
-            onPressed: logout,
+            icon: Icon(Icons.notifications_none, color: Colors.blue[900]),
+            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
           ),
         ],
       ),
@@ -160,148 +133,100 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.green[100],
+                  color: Colors.blue[200],
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Row(
+                child: Column(
                   children: [
-                    Expanded(
-                      flex: 2,
-                      child: Image.asset(
-                        'assets/img/1erp.png',
-                        height: 155,
-                        width: 80,
-                        fit: BoxFit.cover,
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Image.asset(
+                            'assets/img/1erp.png',
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        const Expanded(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'How do you feel?',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Fill out your medical card right now.',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search doctors, hospitals, documents...',
+                        prefixIcon: const Icon(Icons.search),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 20),
-                    const Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'How do you feel?',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    if (filteredItems.isNotEmpty)
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: filteredItems.length,
+                          itemBuilder: (context, index) => ListTile(
+                            leading: const Icon(Icons.search),
+                            title: Text(filteredItems[index]),
                           ),
-                          SizedBox(height: 12),
-                          Text(
-                            'Fill out your medical card right now.',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 30),
-              TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search doctors, hospitals, documents...',
-                  prefixIcon: const Icon(Icons.search),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.green.shade300),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              if (filteredItems.isNotEmpty)
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: filteredItems.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(filteredItems[index]),
-                        leading: const Icon(Icons.search),
-                      );
-                    },
-                  ),
-                ),
-              const SizedBox(height: 25),
+              const Text('Medical Service',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
               SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[200],
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: navigateToNewPage,
-                  icon:
-                      const Icon(Icons.arrow_forward_ios, color: Colors.black),
-                  label: const Text(
-                    'Your Doctor',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                height: 80,
+                height: 70,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: const [
                     CategoryCard(
-                      imagePath: 'assets/img/surgeon.png',
-                      title: 'Surgeon',
-                    ),
+                        imagePath: 'assets/img/surgeon.png', title: 'Surgeon'),
                     CategoryCard(
-                      imagePath: 'assets/img/medicine.png',
-                      title: 'Medicine',
-                    ),
+                        imagePath: 'assets/img/medicine.png',
+                        title: 'Medicine'),
                     CategoryCard(
-                      imagePath: 'assets/img/i3.png',
-                      title: 'Pharmacy',
-                    ),
+                        imagePath: 'assets/img/i3.png', title: 'Pharmacy'),
                     CategoryCard(
-                      imagePath: 'assets/img/i33.png',
-                      title: 'Nursing',
-                    ),
+                        imagePath: 'assets/img/i33.png', title: 'Nursing'),
                   ],
                 ),
               ),
-              const SizedBox(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Doctor List',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(
-                    'See All',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[500],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 30),
+              const Text('Popular Doctors',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
               SizedBox(
                 height: 260,
                 child: ListView(
@@ -338,6 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

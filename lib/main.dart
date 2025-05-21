@@ -1,3 +1,4 @@
+// lib/main.dart
 import 'package:crohn/firebase_options.dart';
 import 'package:crohn/screens/auth/login_screen.dart';
 import 'package:crohn/screens/auth/signup_page.dart';
@@ -57,9 +58,12 @@ class _MainPageState extends State<MainPage> {
 
   void initSP() async {
     UserModel? loadedUser = await Sp().getUserData();
-    setState(() {
-      usermodel = loadedUser;
-    });
+
+    if (loadedUser != null) {
+      setState(() {
+        usermodel = loadedUser;
+      });
+    }
   }
 
   Widget _buildScreen() {
@@ -110,7 +114,7 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.message_outlined),
             activeIcon: Icon(Icons.message),
-            label: 'Chatia',
+            label: 'Messages',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

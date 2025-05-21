@@ -71,7 +71,7 @@ class _MessageScreenState extends State<MessageScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             constraints: const BoxConstraints(maxWidth: 280),
             decoration: BoxDecoration(
-              color: isUser ? const Color(0xFF405DE6) : const Color(0xFFEAEAEA),
+              color: isUser ? Colors.blue[300] : const Color(0xFFEAEAEA),
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(18),
                 topRight: const Radius.circular(18),
@@ -135,7 +135,7 @@ class _MessageScreenState extends State<MessageScreen> {
         child: Column(
           children: [
             AppBar(
-              backgroundColor: const Color(0xFF405DE6),
+              backgroundColor: Colors.blue[300],
               title: const Text(
                 ' Chat ia',
                 style: TextStyle(color: Colors.white),
@@ -190,10 +190,11 @@ class _MessageScreenState extends State<MessageScreen> {
                     const SizedBox(width: 10),
                     GestureDetector(
                       onTap: _sendMessage,
-                      child: const CircleAvatar(
-                        backgroundColor: Color(0xFF405DE6),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.blue[300],
                         radius: 22,
-                        child: Icon(Icons.send, color: Colors.white, size: 20),
+                        child: const Icon(Icons.send,
+                            color: Colors.white, size: 20),
                       ),
                     ),
                   ],

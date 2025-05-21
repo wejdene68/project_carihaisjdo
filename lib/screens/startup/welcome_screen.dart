@@ -11,7 +11,7 @@ class _WelcomeSceenState extends State<WelcomeSceen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blue[400],
       body: SafeArea(
         child: Center(
           child: Column(
@@ -36,7 +36,7 @@ class _WelcomeSceenState extends State<WelcomeSceen> {
                 ),
               ),
               const SizedBox(
-                height: 150,
+                height: 40,
               ),
               const Text(
                 "Find your doctor and make an appointment with one tap ",
@@ -56,7 +56,7 @@ class _WelcomeSceenState extends State<WelcomeSceen> {
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue.shade900),
+                            color: Colors.blue[500]),
                       )))
             ],
           ),
