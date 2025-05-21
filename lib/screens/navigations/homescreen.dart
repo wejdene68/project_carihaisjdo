@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'doctor_card.dart';
 import 'category_card.dart';
 import 'new_page.dart';
+import 'package:crohn/screens/startup/welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String userName;
@@ -15,9 +17,31 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<String> searchItems = [
+    'Dr. Ahmed Salame',
+    'Dr. Karime Yh',
+    'Dr. Ikrame Hannani',
+    'Dr. Aziz Zouzou',
+    'CHU Mustapha',
+    'Crohn Disease Guide PDF',
+    'Hospital El Kettar',
+  ];
+
+  List<String> filteredItems = [];
+  Timer? _searchTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      _filterSearch(_searchController.text);
+    });
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
+    _searchTimer?.cancel();
     super.dispose();
   }
 
@@ -26,6 +50,32 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(builder: (context) => const NewPage()),
     );
+  }
+
+  void logout() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeSceen()),
+    );
+  }
+
+  void _filterSearch(String query) {
+    _searchTimer?.cancel(); // Cancel previous timer
+    if (query.isEmpty) {
+      setState(() => filteredItems.clear());
+      return;
+    }
+
+    setState(() {
+      filteredItems = searchItems
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+
+    // Start timer to clear results after delay
+    _searchTimer = Timer(const Duration(seconds: 2), () {
+      setState(() => filteredItems.clear());
+    });
   }
 
   @override
@@ -42,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               accountEmail: const Text('example@email.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
-                child: Icon(Icons.person, size: 40, color: Colors.blue[700]),
+                child: Icon(Icons.person, size: 60, color: Colors.blue[700]),
               ),
             ),
             ListTile(
@@ -55,9 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/loginpage');
-              },
+              onTap: logout,
             ),
           ],
         ),
@@ -65,55 +113,42 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        automaticallyImplyLeading: false, // no default leading
-        leading: GestureDetector(
-          onTap: () {
-            _scaffoldKey.currentState?.openDrawer();
-          },
-          child: Container(
-            margin: const EdgeInsets.only(left: 15),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'CROHN',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.blue.shade100,
               shape: BoxShape.circle,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 8,
-                  offset: const Offset(0, 4),
+                  offset: Offset(0, 4),
                 ),
               ],
             ),
             child: const Icon(Icons.person, color: Colors.black87, size: 28),
           ),
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Text(
-                  'Welcome,',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  widget.userName,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.black),
+            onPressed: logout,
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -122,8 +157,6 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-
-              // How do you feel card
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -165,10 +198,47 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 30),
-
-              // Get Started Button
+              TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Search doctors, hospitals, documents...',
+                  prefixIcon: const Icon(Icons.search),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.green.shade300),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              if (filteredItems.isNotEmpty)
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: filteredItems.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(filteredItems[index]),
+                        leading: const Icon(Icons.search),
+                      );
+                    },
+                  ),
+                ),
+              const SizedBox(height: 25),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -180,45 +250,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   onPressed: navigateToNewPage,
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.black,
-                  ),
+                  icon:
+                      const Icon(Icons.arrow_forward_ios, color: Colors.black),
                   label: const Text(
-                    'Get Started',
+                    'Your Doctor',
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                 ),
               ),
-
-              const SizedBox(height: 25),
-
-              // Search Bar
-              TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'How can we help you?',
-                  prefixIcon: const Icon(Icons.search),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 0,
-                    horizontal: 20,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.green.shade300),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 25),
-
-              // Horizontal Category List
+              const SizedBox(height: 30),
               SizedBox(
                 height: 80,
                 child: ListView(
@@ -243,10 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 25),
-
-              // Doctor List title
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -264,10 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 25),
-
-              // Doctor Card List
               SizedBox(
                 height: 260,
                 child: ListView(

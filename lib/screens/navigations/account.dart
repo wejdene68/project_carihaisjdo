@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'usermodel.dart'; // Your user model
+import 'usermodel.dart';
 
 class AccountScreen extends StatefulWidget {
   final UserModel user;
@@ -27,7 +27,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDoctor = widget.user.isDoctor; // New condition
+    bool isDoctor = widget.user.isDoctor;
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -85,7 +85,7 @@ class _AccountScreenState extends State<AccountScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 8)],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

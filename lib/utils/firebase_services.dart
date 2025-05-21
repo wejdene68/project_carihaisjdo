@@ -11,6 +11,7 @@ class FirebaseServices {
   Future<UserModel> getData(String uid) async {
     final FirebaseFirestore service = FirebaseFirestore.instance;
 
+    // ignore: non_constant_identifier_names
     final Snapshot = await service.collection("users").doc(uid).get();
 
     return UserModel.fromMap(Snapshot.data()!);

@@ -25,8 +25,8 @@ class _WelcomeSceenState extends State<WelcomeSceen> {
                   "assets/img/doctor_avatar.png",
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   "CROHN",
                   style: TextStyle(
@@ -35,15 +35,15 @@ class _WelcomeSceenState extends State<WelcomeSceen> {
                       color: Colors.white),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
-              Text(
+              const Text(
                 "Find your doctor and make an appointment with one tap ",
                 style: TextStyle(fontSize: 18, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(

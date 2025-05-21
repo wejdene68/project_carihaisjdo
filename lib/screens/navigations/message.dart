@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -9,25 +11,34 @@ class MessageScreen extends StatefulWidget {
 
 class _MessageScreenState extends State<MessageScreen> {
   final TextEditingController _controller = TextEditingController();
-  final List<Map<String, String>> _messages = [];
+  final List<Map<String, dynamic>> _messages = [];
   final ScrollController _scrollController = ScrollController();
+  bool _isTyping = false;
 
   void _sendMessage() {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
 
     setState(() {
-      _messages.add({'sender': 'user', 'text': text});
+      _messages.add({
+        'sender': 'user',
+        'text': text,
+        'timestamp': DateTime.now(),
+      });
       _controller.clear();
+      _isTyping = true;
     });
 
     _scrollToBottom();
 
-    // Simulate AI response
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 1500), () {
       setState(() {
-        _messages
-            .add({'sender': 'ai', 'text': 'Interesting! You said: "$text" 🤖'});
+        _messages.add({
+          'sender': 'ai',
+          'text': 'Interesting! You said: "$text" 🤖',
+          'timestamp': DateTime.now(),
+        });
+        _isTyping = false;
       });
       _scrollToBottom();
     });
@@ -45,49 +56,67 @@ class _MessageScreenState extends State<MessageScreen> {
     });
   }
 
-  Widget _buildMessage(Map<String, String> message) {
+  Widget _buildMessage(Map<String, dynamic> message) {
     final isUser = message['sender'] == 'user';
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-      child: Row(
-        mainAxisAlignment:
-            isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+    final formattedTime = DateFormat('h:mm a').format(message['timestamp']);
+
+    return Align(
+      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment:
+            isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          if (!isUser)
-            CircleAvatar(
-              backgroundColor: Colors.blueGrey,
-              child: const Icon(Icons.smart_toy, color: Colors.white),
-            ),
-          if (!isUser) const SizedBox(width: 8),
-          Flexible(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              decoration: BoxDecoration(
-                color: isUser ? Colors.blueAccent : Colors.grey[300],
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(18),
-                  topRight: const Radius.circular(18),
-                  bottomLeft: Radius.circular(isUser ? 18 : 0),
-                  bottomRight: Radius.circular(isUser ? 0 : 18),
-                ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            constraints: const BoxConstraints(maxWidth: 280),
+            decoration: BoxDecoration(
+              color: isUser ? const Color(0xFF405DE6) : const Color(0xFFEAEAEA),
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(18),
+                topRight: const Radius.circular(18),
+                bottomLeft: Radius.circular(isUser ? 18 : 0),
+                bottomRight: Radius.circular(isUser ? 0 : 18),
               ),
-              child: Text(
-                message['text'] ?? '',
-                style: TextStyle(
-                  color: isUser ? Colors.white : Colors.black87,
-                  fontSize: 16,
-                ),
+            ),
+            child: Text(
+              message['text'],
+              style: TextStyle(
+                color: isUser ? Colors.white : Colors.black87,
+                fontSize: 15.5,
+                height: 1.4,
               ),
             ),
           ),
-          if (isUser) const SizedBox(width: 8),
-          if (isUser)
-            CircleAvatar(
-              backgroundColor: Colors.blueAccent,
-              child: const Icon(Icons.person, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(right: 14.0, left: 14.0),
+            child: Text(
+              formattedTime,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[500],
+              ),
             ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTypingIndicator() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: const Text(
+          'AI is typing...',
+          style: TextStyle(color: Colors.black54),
+        ),
       ),
     );
   }
@@ -95,69 +124,84 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title:
-            const Text('Chat with IA', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
-        elevation: 2,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.all(8),
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                return _buildMessage(_messages[index]);
-              },
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF9F9F9), Color(0xFFF0F0F0)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 4,
-                  color: Colors.black.withValues(alpha: 0.1),
-                  offset: const Offset(0, -2),
-                )
-              ],
+        ),
+        child: Column(
+          children: [
+            AppBar(
+              backgroundColor: const Color(0xFF405DE6),
+              title: const Text(
+                ' Chat ia',
+                style: TextStyle(color: Colors.white),
+              ),
+              elevation: 0,
             ),
-            child: SafeArea(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: TextField(
-                        controller: _controller,
-                        decoration: const InputDecoration(
-                          hintText: 'Type your message...',
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: _sendMessage,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.blueAccent,
-                      child: const Icon(Icons.send, color: Colors.white),
-                    ),
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                itemCount: _messages.length + (_isTyping ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (_isTyping && index == _messages.length) {
+                    return _buildTypingIndicator();
+                  } else {
+                    return _buildMessage(_messages[index]);
+                  }
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 5,
+                    offset: Offset(0, -2),
                   ),
                 ],
               ),
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF0F0F0),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: TextField(
+                          controller: _controller,
+                          decoration: const InputDecoration(
+                            hintText: "Send a message...",
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: _sendMessage,
+                      child: const CircleAvatar(
+                        backgroundColor: Color(0xFF405DE6),
+                        radius: 22,
+                        child: Icon(Icons.send, color: Colors.white, size: 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

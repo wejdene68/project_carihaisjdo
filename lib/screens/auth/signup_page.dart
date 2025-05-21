@@ -36,6 +36,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future<void> _signup() async {
+    // ignore: non_constant_identifier_names
     final User =
         UserModel(fullName: _nameController.text, email: _emailController.text);
 

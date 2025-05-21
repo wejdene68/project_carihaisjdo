@@ -17,6 +17,7 @@ class Auth {
     } on FirebaseAuthException {
       debugPrint("something wrong iwth firebase");
     }
+    return null;
   }
 
   // ------------------- LOGIN -------------------

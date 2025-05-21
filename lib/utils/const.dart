@@ -47,8 +47,8 @@ class Constants {
       colorScheme: ColorScheme.light(
         primary: lightPrimary,
         secondary: lightAccent,
-        background: lightBackground,
-      ).copyWith(background: lightBackground),
+        surface: lightBackground,
+      ).copyWith(surface: lightBackground),
     );
   }
 

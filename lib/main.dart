@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         "/loginpage": (context) => const LoginScreen(),
         "/signuppage": (context) => const SignupPage(),
         "/homescreen": (context) => const MainPage(),
+        "/settingdetails": (context) => const SettingScreen(),
       },
     );
   }
@@ -52,7 +53,6 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
     initSP();
   }
 
