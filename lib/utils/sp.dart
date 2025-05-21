@@ -1,27 +1,30 @@
-import 'package:crohn/screens/navigations/usermodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:crohn/screens/navigations/usermodel.dart';
 
 class Sp {
-  Future<void> storeUser(UserModel user) async {
-    final sp = await SharedPreferences.getInstance();
-
-    await sp.setString("username", user.fullName);
-    await sp.setString("email", user.email);
-    await sp.setBool("isDoctor", user.isDoctor);
+  // Save user data
+  Future<void> saveUserdata(UserModel user) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', user.fullName);
+    await prefs.setString('userEmail', user.email);
   }
 
-  Future<UserModel> getUserdata() async {
-    final sp = await SharedPreferences.getInstance();
+  // Get user data
+  Future<UserModel?> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final name = prefs.getString('userName');
+    final email = prefs.getString('userEmail');
 
-    final username = sp.getString("username") ?? "name";
-    final email = sp.getString("email") ?? "email";
-    final isDoctor = sp.getBool("isDoctor") ?? false;
-
-    return UserModel(fullName: username, email: email, isDoctor: isDoctor);
+    if (name != null && email != null) {
+      return UserModel(fullName: name, email: email);
+    }
+    return null;
   }
 
-  Future<void> loginStatus(bool isLogged) async {
-    final sp = await SharedPreferences.getInstance();
-    await sp.setBool("isLogged", isLogged);
+  // Clear user data
+  Future<void> clearUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userName');
+    await prefs.remove('userEmail');
   }
 }

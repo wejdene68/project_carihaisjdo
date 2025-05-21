@@ -7,7 +7,7 @@ import 'package:crohn/screens/navigations/message.dart';
 import 'package:crohn/screens/navigations/account.dart';
 import 'package:crohn/screens/navigations/setting.dart';
 import 'package:crohn/utils/sp.dart';
-import 'package:firebase_core/firebase_core.dart' show Firebase;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crohn/screens/navigations/usermodel.dart';
 
@@ -47,8 +47,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-
-  late UserModel usermodel;
+  UserModel? usermodel;
 
   @override
   void initState() {
@@ -57,17 +56,24 @@ class _MainPageState extends State<MainPage> {
   }
 
   void initSP() async {
-    usermodel = await Sp().getUserdata();
+    UserModel? loadedUser = await Sp().getUserData();
+    setState(() {
+      usermodel = loadedUser;
+    });
   }
 
   Widget _buildScreen() {
+    if (usermodel == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     switch (_selectedIndex) {
       case 0:
-        return const HomeScreen(userName: 'User');
+        return HomeScreen(userName: usermodel!.fullName);
       case 1:
         return const MessageScreen();
       case 2:
-        return AccountScreen(user: usermodel);
+        return AccountScreen(user: usermodel!);
       case 3:
         return const SettingScreen();
       default:
@@ -104,7 +110,7 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.message_outlined),
             activeIcon: Icon(Icons.message),
-            label: 'Messages',
+            label: 'Chatia',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

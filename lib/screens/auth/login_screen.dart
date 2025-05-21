@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         final cloudData = await FirebaseServices().getData(userData!.uid);
 
-        await Sp().storeUser(cloudData);
+        await Sp().saveUserdata(cloudData);
 
         if (!mounted) return;
         Navigator.pushReplacementNamed(context, '/homescreen');

@@ -4,7 +4,6 @@ import 'package:crohn/utils/sp.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crohn/screens/auth/auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -36,10 +35,6 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future<void> _signup() async {
-    // ignore: non_constant_identifier_names
-    final User =
-        UserModel(fullName: _nameController.text, email: _emailController.text);
-
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
@@ -52,12 +47,22 @@ class _SignupPageState extends State<SignupPage> {
           _passwordController.text.trim(),
         );
 
-        await Sp().storeUser(User);
+        if (userData != null) {
+          // Create the user model
+          final userModel = UserModel(
+            fullName: _nameController.text.trim(),
+            email: _emailController.text.trim(),
+          );
 
-        await FirebaseServices().storeData(User, userData!.uid);
+          // Save to SharedPreferences
+          await Sp().saveUserdata(userModel);
 
-        if (!mounted) return;
-        Navigator.pushReplacementNamed(context, '/homescreen');
+          // Save to Firestore
+          await FirebaseServices().storeData(userModel, userData.uid);
+
+          if (!mounted) return;
+          Navigator.pushReplacementNamed(context, '/homescreen');
+        }
       } on FirebaseAuthException catch (e) {
         setState(() {
           _errorMessage = e.message;
@@ -246,10 +251,4 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-}
-
-Future<void> saveUserData(String name, String email) async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString('userName', name);
-  prefs.setString('userEmail', email);
 }
