@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:crohn/screens/navigations/setting.dart';
 import 'package:flutter/material.dart';
 import 'doctor_card.dart';
 import 'category_card.dart';
@@ -88,7 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                Navigator.pushNamed(context, '/setting');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingScreen()),
+                );
               },
             ),
             ListTile(
@@ -119,7 +124,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.notifications_none, color: Colors.blue[900]),
-            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("No new notifications")),
+              );
+            },
           ),
         ],
       ),
@@ -263,7 +272,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
