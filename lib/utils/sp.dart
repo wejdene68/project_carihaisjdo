@@ -16,7 +16,7 @@ class Sp {
     final email = prefs.getString('userEmail');
 
     if (name != null && email != null) {
-      return UserModel(fullName: name, email: email);
+      return UserModel(fullName: name, email: email, userType: '');
     }
     return null;
   }

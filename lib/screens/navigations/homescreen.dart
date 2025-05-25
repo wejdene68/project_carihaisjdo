@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:crohn/screens/navigations/setting.dart';
+import 'package:crohn/screens/navigations/home/menu.dart';
 import 'package:flutter/material.dart';
 import 'doctor_card.dart';
 import 'category_card.dart';
@@ -73,36 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color(0xFFF4F9F9),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue[300]),
-              accountName: Text(widget.userName),
-              accountEmail: const Text('example@email.com'),
-              currentAccountPicture: const CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.person, size: 60, color: Colors.blue),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SettingScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: logout,
-            ),
-          ],
-        ),
+      drawer: MenuWidget(
+        onLogout: logout,
       ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -223,8 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     CategoryCard(
                         imagePath: 'assets/img/surgeon.png', title: 'Surgeon'),
                     CategoryCard(
-                        imagePath: 'assets/img/medicine.png',
-                        title: 'Medicine'),
+                        imagePath: 'assets/img/doctor3.png', title: 'Medicine'),
                     CategoryCard(
                         imagePath: 'assets/img/i3.png', title: 'Pharmacy'),
                     CategoryCard(

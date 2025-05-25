@@ -2,7 +2,8 @@ class UserModel {
   final String fullName;
   final String email;
 
-  UserModel({required this.fullName, required this.email});
+  UserModel(
+      {required this.fullName, required this.email, required String userType});
 
   Map<String, dynamic> toMap() {
     return {
@@ -15,6 +16,7 @@ class UserModel {
     return UserModel(
       fullName: map['fullName'],
       email: map['email'],
+      userType: '',
     );
   }
 }

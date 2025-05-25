@@ -110,7 +110,7 @@ class _AccountScreenState extends State<AccountScreen>
                           radius: 60,
                           backgroundImage: _profileImage != null
                               ? FileImage(_profileImage!)
-                              : const AssetImage('assets/img/DR1.jpg')
+                              : const AssetImage('assets/img/doctor1.png')
                                   as ImageProvider,
                         ),
                         CircleAvatar(

@@ -1,4 +1,3 @@
-// lib/main.dart
 import 'package:crohn/firebase_options.dart';
 import 'package:crohn/screens/auth/login_screen.dart';
 import 'package:crohn/screens/auth/signup_page.dart';
@@ -29,11 +28,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/welcomescreen',
       routes: {
-        "/welcomescreen": (context) => const WelcomeSceen(),
-        "/loginpage": (context) => const LoginScreen(),
-        "/signuppage": (context) => const SignupPage(),
-        "/homescreen": (context) => const MainPage(),
-        "/settingdetails": (context) => const SettingScreen(),
+        '/welcomescreen': (context) => const WelcomeSceen(),
+        '/loginpage': (context) => const LoginScreen(),
+        '/signuppage': (context) => const SignupPage(),
+        '/homescreen': (context) => const MainPage(),
+        '/settingdetails': (context) => const SettingScreen(),
       },
     );
   }
@@ -58,7 +57,6 @@ class _MainPageState extends State<MainPage> {
 
   void initSP() async {
     UserModel? loadedUser = await Sp().getUserData();
-
     if (loadedUser != null) {
       setState(() {
         usermodel = loadedUser;
