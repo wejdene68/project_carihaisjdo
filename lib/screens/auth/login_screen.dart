@@ -88,130 +88,143 @@ class _LoginScreenState extends State<LoginScreen>
         children: [
           Image.asset("assets/img/end2.jpg", fit: BoxFit.cover),
           SafeArea(
-            child: SlideTransition(
-              position: _slideAnimation,
-              child: Align(
-                alignment: Alignment.centerLeft,
+            child: Center(
+              child: SlideTransition(
+                position: _slideAnimation,
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 20, right: 100),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Card(
-                        elevation: 15,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        // ignore: deprecated_member_use
-                        color: Colors.white.withOpacity(0.3),
-                        child: Padding(
-                          padding: const EdgeInsets.all(28.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(60),
-                                  child: Image.asset(
-                                    'assets/img/pfp.jpg',
-                                    height: 100,
-                                    width: 100,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  "Welcome Back",
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue[800],
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                const Text("Please login to continue"),
-                                const SizedBox(height: 30),
-                                TextFormField(
-                                  controller: _emailController,
-                                  validator: (value) => value!.isEmpty
-                                      ? 'Please enter your email'
-                                      : null,
-                                  decoration: InputDecoration(
-                                    labelText: 'Email',
-                                    prefixIcon: const Icon(Icons.email),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                TextFormField(
-                                  controller: _passwordController,
-                                  obscureText: true,
-                                  validator: (value) => value!.isEmpty
-                                      ? 'Please enter your password'
-                                      : null,
-                                  decoration: InputDecoration(
-                                    labelText: 'Password',
-                                    prefixIcon: const Icon(Icons.lock),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
-                                if (_errorMessage != null)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      _errorMessage!,
-                                      style: const TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w600,
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: 400,
+                        maxHeight: 600,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Card(
+                            elevation: 15,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            // ignore: deprecated_member_use
+                            color: Colors.white.withOpacity(0.3),
+                            child: Padding(
+                              padding: const EdgeInsets.all(28.0),
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: Image.asset(
+                                        'assets/img/pfp.jpg',
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                  ),
-                                const SizedBox(height: 20),
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 50,
-                                  child: ElevatedButton(
-                                    onPressed: _isLoading ? null : _login,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue[800],
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                    const SizedBox(height: 20),
+                                    Text(
+                                      "Welcome Back",
+                                      style: TextStyle(
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue[800],
                                       ),
                                     ),
-                                    child: _isLoading
-                                        ? const CircularProgressIndicator(
-                                            color: Colors.white)
-                                        : const Text(
-                                            'Login',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                                    const SizedBox(height: 10),
+                                    const Text("Please login to continue"),
+                                    const SizedBox(height: 30),
+                                    TextFormField(
+                                      controller: _emailController,
+                                      validator: (value) => value!.isEmpty
+                                          ? 'Please enter your email'
+                                          : null,
+                                      decoration: InputDecoration(
+                                        labelText: 'Email',
+                                        prefixIcon: const Icon(Icons.email),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    TextFormField(
+                                      controller: _passwordController,
+                                      obscureText: true,
+                                      validator: (value) => value!.isEmpty
+                                          ? 'Please enter your password'
+                                          : null,
+                                      decoration: InputDecoration(
+                                        labelText: 'Password',
+                                        prefixIcon: const Icon(Icons.lock),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                      ),
+                                    ),
+                                    if (_errorMessage != null)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Text(
+                                          _errorMessage!,
+                                          style: const TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.w600,
                                           ),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                GestureDetector(
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                      context, '/signuppage'),
-                                  child: Text(
-                                    "Don't have an account? Sign up",
-                                    style: TextStyle(
-                                      color: Colors.blue[800],
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    const SizedBox(height: 20),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: ElevatedButton(
+                                        onPressed: _isLoading ? null : _login,
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.blue[800],
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                        child: _isLoading
+                                            ? const CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )
+                                            : const Text(
+                                                'Login',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                    const SizedBox(height: 20),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          Navigator.pushReplacementNamed(
+                                              context, '/signuppage'),
+                                      child: Text(
+                                        "Don't have an account? Sign up",
+                                        style: TextStyle(
+                                          color: Colors.blue[800],
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),

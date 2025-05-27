@@ -66,28 +66,22 @@ class _SignupPageState extends State<SignupPage>
       });
 
       try {
-        // Create user in Firebase Auth
         final userData = await _authService.registerWithEmail(
           _emailController.text.trim(),
           _passwordController.text.trim(),
         );
 
         if (userData != null) {
-          // Create user model
           final userModel = UserModel(
             fullName: _nameController.text.trim(),
             email: _emailController.text.trim(),
             userType: _userType,
           );
 
-          // Save to SharedPreferences
           await Sp().saveUserdata(userModel);
-
-          // Save to Firestore
           await FirebaseServices().storeData(userModel, userData.uid);
 
           if (!mounted) return;
-
           Navigator.pushReplacementNamed(context, '/homescreen');
         }
       } on FirebaseAuthException catch (e) {
@@ -109,39 +103,43 @@ class _SignupPageState extends State<SignupPage>
         fit: StackFit.expand,
         children: [
           Image.asset("assets/img/end2.jpg", fit: BoxFit.cover),
-          SafeArea(
+          Center(
             child: SlideTransition(
               position: _slideAnimation,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 20, right: 100),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Card(
-                        elevation: 15,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        // ignore: deprecated_member_use
-                        color: Colors.white.withOpacity(0.3),
-                        child: Padding(
-                          padding: const EdgeInsets.all(28.0),
-                          child: Form(
-                            key: _formKey,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 400,
+                  maxHeight: 600,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Card(
+                      elevation: 15,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      // ignore: deprecated_member_use
+                      color: Colors.white.withOpacity(0.3),
+                      child: Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Form(
+                          key: _formKey,
+                          child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(60),
-                                  child: Image.asset(
-                                    'assets/img/pfp.jpg',
-                                    height: 100,
-                                    width: 100,
-                                    fit: BoxFit.cover,
+                                Center(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(60),
+                                    child: Image.asset(
+                                      'assets/img/pfp.jpg',
+                                      height: 100,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 20),
