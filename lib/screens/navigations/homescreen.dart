@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:crohn/screens/navigations/home/medical_service/DoctorListPage.dart';
 import 'package:crohn/screens/navigations/home/medical_service/mediciene.dart';
 import 'package:crohn/screens/navigations/home/medical_service/nursing.dart';
 import 'package:crohn/screens/navigations/home/medical_service/pharmacy.dart';
-import 'package:crohn/screens/navigations/home/medical_service/surgeon.dart';
 import 'package:flutter/material.dart';
 import 'package:crohn/screens/navigations/home/menu.dart';
 import 'doctor_card.dart';
@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SurgeonPage()),
+                              builder: (context) => const DoctorListPage()),
                         );
                       },
                     ),
@@ -237,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PharmacyPage()),
+                              builder: (context) => const SearchBarPage()),
                         );
                       },
                     ),
@@ -248,7 +248,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const NursingPage()),
+                              builder: (context) =>
+                                  const NursingServicesPage()),
                         );
                       },
                     ),
@@ -272,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     DoctorCard(
                       doctorImagePath: 'assets/img/DR1.jpg',
                       rating: '4.9',
-                      doctorName: 'Dr. Ahmed Salame',
+                      doctorName: 'Dr. Salah Eddine ',
                       doctorProfession: 'Gastroenterologist, 10 y.e.',
                     ),
                     DoctorCard(

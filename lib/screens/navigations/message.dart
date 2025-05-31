@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -124,85 +123,94 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFF9F9F9), Color(0xFFF0F0F0)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/img/end3.jpg',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Column(
-          children: [
-            AppBar(
-              backgroundColor: Colors.blue[300],
-              title: const Text(
-                ' Chat ia',
-                style: TextStyle(color: Colors.white),
-              ),
-              elevation: 0,
-            ),
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                itemCount: _messages.length + (_isTyping ? 1 : 0),
-                itemBuilder: (context, index) {
-                  if (_isTyping && index == _messages.length) {
-                    return _buildTypingIndicator();
-                  } else {
-                    return _buildMessage(_messages[index]);
-                  }
-                },
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 5,
-                    offset: Offset(0, -2),
+          Container(
+            // ignore: deprecated_member_use
+            color: Colors.white.withOpacity(0.5),
+            child: Column(
+              children: [
+                AppBar(
+                  // ignore: deprecated_member_use
+                  backgroundColor: Colors.blue[300]?.withOpacity(0.9),
+                  title: const Text(
+                    ' Chat ia',
+                    style: TextStyle(color: Colors.white),
                   ),
-                ],
-              ),
-              child: SafeArea(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF0F0F0),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: TextField(
-                          controller: _controller,
-                          decoration: const InputDecoration(
-                            hintText: "Send a message...",
-                            border: InputBorder.none,
+                  elevation: 0,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    itemCount: _messages.length + (_isTyping ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      if (_isTyping && index == _messages.length) {
+                        return _buildTypingIndicator();
+                      } else {
+                        return _buildMessage(_messages[index]);
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
+                    color: Colors.white.withOpacity(0.95),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        offset: Offset(0, -2),
+                      ),
+                    ],
+                  ),
+                  child: SafeArea(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            decoration: BoxDecoration(
+                              // ignore: deprecated_member_use
+                              color: const Color(0xFFF0F0F0).withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: TextField(
+                              controller: _controller,
+                              decoration: const InputDecoration(
+                                hintText: "Send a message...",
+                                border: InputBorder.none,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        const SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: _sendMessage,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blue[300],
+                            radius: 22,
+                            child: const Icon(Icons.send,
+                                color: Colors.white, size: 20),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: _sendMessage,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.blue[300],
-                        radius: 22,
-                        child: const Icon(Icons.send,
-                            color: Colors.white, size: 20),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

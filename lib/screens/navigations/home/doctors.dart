@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:lucide_icons/lucide_icons.dart';
 
 class DoctorsPage extends StatefulWidget {
