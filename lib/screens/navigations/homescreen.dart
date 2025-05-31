@@ -1,6 +1,10 @@
 import 'dart:async';
-import 'package:crohn/screens/navigations/home/menu.dart';
+import 'package:crohn/screens/navigations/home/medical_service/mediciene.dart';
+import 'package:crohn/screens/navigations/home/medical_service/nursing.dart';
+import 'package:crohn/screens/navigations/home/medical_service/pharmacy.dart';
+import 'package:crohn/screens/navigations/home/medical_service/surgeon.dart';
 import 'package:flutter/material.dart';
+import 'package:crohn/screens/navigations/home/menu.dart';
 import 'doctor_card.dart';
 import 'category_card.dart';
 import 'package:crohn/screens/startup/welcome_screen.dart';
@@ -58,14 +62,23 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() => filteredItems.clear());
       return;
     }
+
     setState(() {
       filteredItems = searchItems
           .where((item) => item.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
+
     _searchTimer = Timer(const Duration(seconds: 2), () {
       setState(() => filteredItems.clear());
     });
+  }
+
+  void openServicePage(Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
   }
 
   @override
@@ -73,9 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color(0xFFF4F9F9),
-      drawer: MenuWidget(
-        onLogout: logout,
-      ),
+      drawer: MenuWidget(onLogout: logout),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -110,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              // Hero Section
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -153,6 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
+                    // Search Bar
                     TextField(
                       controller: _searchController,
                       decoration: InputDecoration(
@@ -184,28 +196,73 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 30),
-              const Text('Medical Service',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
+              // Medical Service
+              const Text(
+                'Medical Service',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 height: 70,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: const [
+                  children: [
                     CategoryCard(
-                        imagePath: 'assets/img/surgeon.png', title: 'Surgeon'),
+                      imagePath: 'assets/img/surgeon.png',
+                      title: 'Surgeon',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SurgeonPage()),
+                        );
+                      },
+                    ),
                     CategoryCard(
-                        imagePath: 'assets/img/doctor3.png', title: 'Medicine'),
+                      imagePath: 'assets/img/doctor3.png',
+                      title: 'Medicine',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MedicinePage()),
+                        );
+                      },
+                    ),
                     CategoryCard(
-                        imagePath: 'assets/img/i3.png', title: 'Pharmacy'),
+                      imagePath: 'assets/img/i3.png',
+                      title: 'Pharmacy',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PharmacyPage()),
+                        );
+                      },
+                    ),
                     CategoryCard(
-                        imagePath: 'assets/img/i33.png', title: 'Nursing'),
+                      imagePath: 'assets/img/i33.png',
+                      title: 'Nursing',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const NursingPage()),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
+
               const SizedBox(height: 30),
-              const Text('Popular Doctors',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
+              // Popular Doctors
+              const Text(
+                'Popular Doctors',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 height: 260,

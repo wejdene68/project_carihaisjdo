@@ -18,14 +18,14 @@ class _DoctorsPageState extends State<DoctorsPage> {
       "specialty": "Pediatrician",
       "contact": "+213 541 234 123",
       "availableDays": ["Sunday", "Tuesday", "Thursday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774299.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Youcef Karim",
       "specialty": "General Practitioner",
       "contact": "+213 540 654 321",
       "availableDays": ["Monday", "Wednesday", "Friday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774300.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Nadia Lamine",
@@ -39,50 +39,49 @@ class _DoctorsPageState extends State<DoctorsPage> {
       "specialty": "Cardiologist",
       "contact": "+213 522 300 120",
       "availableDays": ["Tuesday", "Thursday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774298.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Ines Mebarki",
       "specialty": "Dermatologist",
       "contact": "+213 511 789 222",
       "availableDays": ["Monday", "Friday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774304.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Hichem Belkacem",
       "specialty": "Neurologist",
       "contact": "+213 541 987 666",
       "availableDays": ["Wednesday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774300.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Selma Khodja",
       "specialty": "Ophthalmologist",
       "contact": "+213 555 000 111",
       "availableDays": ["Tuesday", "Saturday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774301.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Mourad Ziani",
       "specialty": "Orthopedic",
       "contact": "+213 588 963 147",
       "availableDays": ["Thursday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774305.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Amina Sahnoune",
       "specialty": "Gynecologist",
       "contact": "+213 533 112 400",
       "availableDays": ["Monday", "Wednesday"],
-      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774303.png"
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
     {
       "name": "Dr. Karim Tarek",
       "specialty": "Dentist",
       "contact": "+213 599 776 899",
       "availableDays": ["Friday", "Sunday"],
-      "image":
-          "https://cdn-icons-png.flaticon.com/512/3774/3774292.png", // tooth
+      "image": "https://cdn-icons-png.flaticon.com/512/3774/3774293.png"
     },
   ];
 
