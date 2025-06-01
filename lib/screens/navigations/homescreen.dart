@@ -253,6 +253,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                     ),
+                    CategoryCard(
+                      imagePath: 'assets/img/doctor2.png',
+                      title: 'AI ',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const NursingServicesPage()),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
