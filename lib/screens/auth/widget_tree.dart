@@ -18,7 +18,6 @@ class WidgetTree extends StatelessWidget {
         }
 
         if (snapshot.hasData) {
-          // Get user display name or fallback to email/UID
           final user = snapshot.data!;
           final String userName = user.displayName ?? user.email ?? user.uid;
 

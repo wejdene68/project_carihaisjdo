@@ -4,9 +4,8 @@ import 'package:flutter/widgets.dart';
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // ------------------- REGISTER -------------------
+  // REGISTER
 
-  /// Register and return User
   Future<User?> registerWithEmail(String email, String password) async {
     try {
       final result = await _auth.createUserWithEmailAndPassword(
@@ -19,10 +18,8 @@ class Auth {
     }
     return null;
   }
+  //  LOGIN
 
-  // ------------------- LOGIN -------------------
-
-  /// Login with email & password (simple version)
   Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     final user = await _auth.signInWithEmailAndPassword(
@@ -30,7 +27,6 @@ class Auth {
     return user.user;
   }
 
-  /// Login and return User
   Future<User?> signInWithEmail(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -44,21 +40,16 @@ class Auth {
     }
   }
 
-  // ------------------- LOGOUT -------------------
+  // LOGOUT
 
-  /// Logout current user
   Future<void> signOut() async {
     await _auth.signOut();
   }
 
-  // ------------------- USER INFO -------------------
-
-  /// Get current user
   User? getCurrentUser() {
     return _auth.currentUser;
   }
 
-  /// Auth state changes (for StreamBuilder)
   Stream<User?> get authStateChanges {
     return _auth.authStateChanges();
   }

@@ -257,7 +257,6 @@ class _SearchBarPageState extends State<SearchBarPage> {
 
             const SizedBox(height: 20),
 
-            // Medication info
             if (searchedMed.isNotEmpty && medInfo.containsKey(searchedMed))
               GestureDetector(
                 onTap: () => _showMedDialog(searchedMed),
