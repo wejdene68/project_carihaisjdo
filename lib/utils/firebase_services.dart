@@ -8,9 +8,9 @@ class FirebaseServices {
     await service.collection("users").doc(uid).set(usermodel.toMap());
   }
 
-  Future<UserModel> getData(String uid) async {
+  Future<Map<String, dynamic>> getData(String uid) async {
     final FirebaseFirestore service = FirebaseFirestore.instance;
     final snapshot = await service.collection("users").doc(uid).get();
-    return UserModel.fromMap(snapshot.data()!);
+    return snapshot.data()!;
   }
 }

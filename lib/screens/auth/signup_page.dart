@@ -70,19 +70,26 @@ class _SignupPageState extends State<SignupPage>
           _emailController.text.trim(),
           _passwordController.text.trim(),
         );
+        debugPrint("first done");
 
         if (userData != null) {
           final userModel = UserModel(
             fullName: _nameController.text.trim(),
             email: _emailController.text.trim(),
-            userType: _userType,
+            isDoctor: _userType == 'Doctor' ? true : false,
           );
+          debugPrint("second done");
 
-          await Sp().saveUserdata(userModel);
-          await FirebaseServices().storeData(userModel, userData.uid);
+          await Sp().saveUserdata(userModel.toMap()).whenComplete(
+            () {
+              FirebaseServices().storeData(userModel, userData.uid);
+            },
+          );
+          debugPrint("third done");
 
           if (!mounted) return;
           Navigator.pushReplacementNamed(context, '/homescreen');
+          debugPrint("fourth done");
         }
       } on FirebaseAuthException catch (e) {
         setState(() {
