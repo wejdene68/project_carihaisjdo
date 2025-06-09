@@ -16,48 +16,48 @@ class _DoctorContactsPageState extends State<DoctorContactsPage>
   final List<Map<String, String>> doctors = [
     {
       "name": "Dr. Alice Smith",
-      "phone": "+123456789",
+      "phone": "+213123456789",
       "specialty": "Gastroenterologist"
     },
     {
       "name": "Dr. Bob Johnson",
-      "phone": "+987654321",
+      "phone": "+213987654321",
       "specialty": "Nutritionist"
     },
-    {"name": "Dr. Carol Lee", "phone": "+192837465", "specialty": "Surgeon"},
+    {"name": "Dr. Carol Lee", "phone": "+213192837465", "specialty": "Surgeon"},
     {
       "name": "Dr. David Kim",
-      "phone": "+111223344",
+      "phone": "+213111223344",
       "specialty": "Cardiologist"
     },
     {
       "name": "Dr. Eva Brown",
-      "phone": "+9988776655",
+      "phone": "+2139988776655",
       "specialty": "Dermatologist"
     },
     {
       "name": "Dr. Frank Wilson",
-      "phone": "+5566778899",
+      "phone": "+2135566778899",
       "specialty": "Psychiatrist"
     },
     {
       "name": "Dr. Grace Moore",
-      "phone": "+4455667788",
+      "phone": "+2134455667788",
       "specialty": "Orthopedic"
     },
     {
       "name": "Dr. Henry Clark",
-      "phone": "+3344556677",
+      "phone": "+2133344556677",
       "specialty": "Pediatrician"
     },
     {
       "name": "Dr. Irene Turner",
-      "phone": "+2233445566",
+      "phone": "+2132233445566",
       "specialty": "Endocrinologist"
     },
     {
       "name": "Dr. Jack White",
-      "phone": "+1122334455",
+      "phone": "+2131122334455",
       "specialty": "Neurologist"
     },
   ];

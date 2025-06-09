@@ -1,3 +1,6 @@
+import 'package:crohn/utils/firebase_services.dart';
+import 'package:crohn/utils/sp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -27,11 +30,21 @@ class _AccountScreenState extends State<AccountScreen>
 
   bool _isAnimated = false;
 
+  final sp = Sp();
+  final firebaseservices = FirebaseServices();
+
+  void fillController() {
+    _fullNameController.text = widget.user.fullName;
+    _bioController.text = widget.user.bio ?? '';
+    _specialityController.text = widget.user.isDoctor ? "Doctor" : "Patient";
+    _addressController.text = widget.user.address ?? '';
+    _experienceController.text = widget.user.proexp ?? '';
+  }
+
   @override
   void initState() {
     super.initState();
-    _fullNameController.text = widget.user.fullName;
-
+    fillController();
     _buttonController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -110,7 +123,7 @@ class _AccountScreenState extends State<AccountScreen>
                           radius: 60,
                           backgroundImage: _profileImage != null
                               ? FileImage(_profileImage!)
-                              : const AssetImage('assets/img/doctor1.png')
+                              : const AssetImage('assets/img/doctor1.webp')
                                   as ImageProvider,
                         ),
                         CircleAvatar(
@@ -151,6 +164,17 @@ class _AccountScreenState extends State<AccountScreen>
                     onTapDown: (_) => _buttonController.forward(),
                     onTapUp: (_) {
                       _buttonController.reverse();
+
+                      final updatedModel = UserModel(
+                          uid: widget.user.uid,
+                          fullName: _fullNameController.text,
+                          email: widget.user.email,
+                          isDoctor: widget.user.isDoctor,
+                          proexp: _experienceController.text,
+                          address: _addressController.text);
+
+                      firebaseservices.storeData(updatedModel, widget.user.uid);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text("Profile information saved.")),

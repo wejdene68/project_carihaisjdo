@@ -134,10 +134,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Image.asset(
-                            'assets/img/1erp.png',
-                            height: 150,
-                            fit: BoxFit.cover,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Image.asset(
+                              'assets/img/1erp.webp',
+                              height: 100,
+                              width: 120,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 20),
@@ -209,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     CategoryCard(
-                      imagePath: 'assets/img/surgeon.png',
+                      imagePath: 'assets/img/surgeon.webp',
                       title: 'Surgeon',
                       onTap: () {
                         Navigator.push(
@@ -220,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     CategoryCard(
-                      imagePath: 'assets/img/doctor3.png',
+                      imagePath: 'assets/img/doctor3.webp',
                       title: 'Medicine',
                       onTap: () {
                         Navigator.push(
@@ -231,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     CategoryCard(
-                      imagePath: 'assets/img/i3.png',
+                      imagePath: 'assets/img/i3.webp',
                       title: 'Pharmacy',
                       onTap: () {
                         Navigator.push(
@@ -242,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     CategoryCard(
-                      imagePath: 'assets/img/i33.png',
+                      imagePath: 'assets/img/i33.webp',
                       title: 'Nursing',
                       onTap: () {
                         Navigator.push(
@@ -254,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     CategoryCard(
-                      imagePath: 'assets/img/doctor2.png',
+                      imagePath: 'assets/img/doctor2.webp',
                       title: 'AI ',
                       onTap: () {
                         Navigator.push(
@@ -283,25 +287,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   children: const [
                     DoctorCard(
-                      doctorImagePath: 'assets/img/DR1.jpg',
+                      doctorImagePath: 'assets/img/DR1.webp',
                       rating: '4.9',
                       doctorName: 'Dr. Salah Eddine ',
                       doctorProfession: 'Gastroenterologist, 10 y.e.',
                     ),
                     DoctorCard(
-                      doctorImagePath: 'assets/img/DR2.jpg',
+                      doctorImagePath: 'assets/img/DR2.webp',
                       rating: '4.7',
                       doctorName: 'Dr. Karime Yh',
                       doctorProfession: 'IBD Specialist, 8 y.e.',
                     ),
                     DoctorCard(
-                      doctorImagePath: 'assets/img/DR3.jpg',
+                      doctorImagePath: 'assets/img/DR3.webp',
                       rating: '4.5',
                       doctorName: 'Dr. Ikrame Hannani',
                       doctorProfession: 'Nutritionist, 5 y.e.',
                     ),
                     DoctorCard(
-                      doctorImagePath: 'assets/img/DR4.jpg',
+                      doctorImagePath: 'assets/img/DR4.webp',
                       rating: '4.3',
                       doctorName: 'Dr. Aziz Zouzou',
                       doctorProfession: 'Colorectal Surgeon, 7 y.e.',

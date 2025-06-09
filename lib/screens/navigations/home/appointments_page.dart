@@ -92,7 +92,7 @@ class _AppointmentsPageState extends State<AppointmentsPage>
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/img/equipe2.jpg"),
+                image: AssetImage("assets/img/equipe2.webp"),
                 fit: BoxFit.cover,
               ),
             ),

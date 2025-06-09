@@ -221,13 +221,6 @@ class _HealthTipsPageState extends State<HealthTipsPage> {
       appBar: AppBar(
         title: Text(isFrench ? 'Conseils Santé' : 'Health Tips'),
         centerTitle: true,
-        actions: [
-          Switch(
-            value: isFrench,
-            onChanged: toggleLanguage,
-            activeColor: Colors.blue[400],
-          ),
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20),

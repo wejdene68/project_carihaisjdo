@@ -102,7 +102,7 @@ class _HelpFaqsPageState extends State<HelpFaqsPage>
         fit: StackFit.expand,
         children: [
           Image.asset(
-            "assets/img/BR1.jpg",
+            "assets/img/BR1.webp",
             fit: BoxFit.cover,
             // ignore: deprecated_member_use
             color: blue400.withOpacity(0.10),

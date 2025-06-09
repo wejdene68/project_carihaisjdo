@@ -1,6 +1,7 @@
 import 'package:crohn/firebase_options.dart';
 import 'package:crohn/screens/auth/login_screen.dart';
 import 'package:crohn/screens/auth/signup_page.dart';
+import 'package:crohn/screens/navigations/splash_screen.dart';
 import 'package:crohn/screens/startup/welcome_screen.dart';
 import 'package:crohn/screens/navigations/homescreen.dart';
 import 'package:crohn/screens/navigations/message.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/welcomescreen',
+      initialRoute: '/splashscreen',
       routes: {
+        '/splashscreen': (context) => const SplashScreen(),
         '/welcomescreen': (context) => const WelcomeSceen(),
         '/loginpage': (context) => const LoginScreen(),
         '/signuppage': (context) => const SignupPage(),
@@ -48,6 +50,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   UserModel? usermodel;
+  bool isLogged = false;
 
   @override
   void initState() {

@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen>
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset("assets/img/end2.jpg", fit: BoxFit.cover),
+          Image.asset("assets/img/end2.webp", fit: BoxFit.cover),
           SafeArea(
             child: Center(
               child: SlideTransition(
@@ -118,16 +118,6 @@ class _LoginScreenState extends State<LoginScreen>
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(60),
-                                      child: Image.asset(
-                                        'assets/img/pfp.jpg',
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
                                     Text(
                                       "Welcome Back",
                                       style: TextStyle(

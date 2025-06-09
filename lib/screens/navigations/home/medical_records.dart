@@ -346,7 +346,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage>
           FadeTransition(
             opacity: _bgAnimation,
             child: Image.asset(
-              "assets/img/equipe2.jpg",
+              "assets/img/equipe2.webp",
               fit: BoxFit.cover,
               // ignore: deprecated_member_use
               color: Colors.blue.withOpacity(0.3),
@@ -355,10 +355,9 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage>
           ),
           Column(
             children: [
-              const SizedBox(height: kToolbarHeight + 15),
+              const SizedBox(height: kToolbarHeight + 60),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.only(right: 16, left: 16),
                 child: TextField(
                   onChanged: _filterRecords,
                   decoration: InputDecoration(

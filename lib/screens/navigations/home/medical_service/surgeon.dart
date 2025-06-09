@@ -27,7 +27,7 @@ class _SurgeonPageState extends State<SurgeonPage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/img/equipe2.jpg'),
+                image: AssetImage('assets/img/equipe2.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,7 +53,7 @@ class _SurgeonPageState extends State<SurgeonPage> {
                         children: [
                           CircleAvatar(
                             radius: 60,
-                            backgroundImage: AssetImage('assets/img/PDR.jpg'),
+                            backgroundImage: AssetImage('assets/img/PDR.webp'),
                           ),
                           SizedBox(height: 10),
                           Text(
@@ -253,7 +253,7 @@ class _AppointmentPageState extends State<AppointmentPage>
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/img/d.jpg'),
+                image: AssetImage('assets/img/d.webp'),
                 fit: BoxFit.cover,
               ),
             ),

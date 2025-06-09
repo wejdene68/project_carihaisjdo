@@ -33,23 +33,23 @@ class _SettingScreenState extends State<SettingScreen>
     _scaleAnimation =
         Tween<double>(begin: 1.0, end: 0.95).animate(_animationController);
 
-    _loadLanguagePreference();
+    // _loadLanguagePreference();
   }
 
-  Future<void> _loadLanguagePreference() async {
-    final prefs = await SharedPreferences.getInstance();
-    final lang = prefs.getString('language');
-    if (lang != null) {
-      setState(() {
-        isEnglish = lang == 'en';
-      });
-    }
-  }
+  // Future<void> _loadLanguagePreference() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final lang = prefs.getString('language');
+  //   if (lang != null) {
+  //     setState(() {
+  //       isEnglish = lang == 'en';
+  //     });
+  //   }
+  // }
 
-  Future<void> _saveLanguagePreference(bool english) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('language', english ? 'en' : 'fr');
-  }
+  // Future<void> _saveLanguagePreference(bool english) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('language', english ? 'en' : 'fr');
+  // }
 
   @override
   void dispose() {
@@ -296,40 +296,40 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  Widget languageToggleBubble() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isEnglish = !isEnglish;
-        });
-        _saveLanguagePreference(isEnglish);
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: isEnglish ? Colors.blue[400] : Colors.green[400],
-          borderRadius: BorderRadius.circular(50),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Text(
-          isEnglish ? 'English' : 'Français',
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            letterSpacing: 1.1,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget languageToggleBubble() {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         isEnglish = !isEnglish;
+  //       });
+  //       _saveLanguagePreference(isEnglish);
+  //     },
+  //     child: AnimatedContainer(
+  //       duration: const Duration(milliseconds: 300),
+  //       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //       decoration: BoxDecoration(
+  //         color: isEnglish ? Colors.blue[400] : Colors.green[400],
+  //         borderRadius: BorderRadius.circular(50),
+  //         boxShadow: const [
+  //           BoxShadow(
+  //             color: Colors.black26,
+  //             blurRadius: 8,
+  //             offset: Offset(0, 4),
+  //           ),
+  //         ],
+  //       ),
+  //       child: Text(
+  //         isEnglish ? 'English' : 'Français',
+  //         style: const TextStyle(
+  //           color: Colors.white,
+  //           fontWeight: FontWeight.bold,
+  //           fontSize: 16,
+  //           letterSpacing: 1.1,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget backButtonBubble() {
     return Positioned(
@@ -374,7 +374,7 @@ class _SettingScreenState extends State<SettingScreen>
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/img/DR3.jpg'),
+                image: AssetImage('assets/img/DR3.webp'),
                 fit: BoxFit.cover,
                 opacity: 0.40,
               ),
@@ -407,7 +407,7 @@ class _SettingScreenState extends State<SettingScreen>
                             ],
                           ),
                         ),
-                        languageToggleBubble(),
+                        // languageToggleBubble(),
                       ],
                     ),
                   ),

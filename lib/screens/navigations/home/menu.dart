@@ -104,19 +104,6 @@ class MenuWidget extends StatelessWidget {
                   },
                 ),
                 _buildAnimatedTile(
-                  icon: Icons.settings,
-                  label: 'Settings',
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SettingScreen(),
-                      ),
-                    );
-                  },
-                ),
-                _buildAnimatedTile(
                   icon: Icons.help,
                   label: 'Help & FAQs',
                   onTap: () {

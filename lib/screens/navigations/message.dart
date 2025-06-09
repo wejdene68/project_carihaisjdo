@@ -127,7 +127,7 @@ class _MessageScreenState extends State<MessageScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/img/end3.jpg',
+              'assets/img/end3.webp',
               fit: BoxFit.cover,
             ),
           ),
