@@ -89,7 +89,6 @@ class _AppointmentsPageState extends State<AppointmentsPage>
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -98,8 +97,6 @@ class _AppointmentsPageState extends State<AppointmentsPage>
               ),
             ),
           ),
-
-          // Foreground content
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -132,7 +129,6 @@ class _AppointmentsPageState extends State<AppointmentsPage>
                   ),
                   const SizedBox(height: 20),
 
-                  // Animated Appointments List
                   Expanded(
                     child: FadeTransition(
                       opacity: _fadeAnimation,
@@ -177,7 +173,6 @@ class _AppointmentsPageState extends State<AppointmentsPage>
 
                   const SizedBox(height: 20),
 
-                  // Add Appointment Button
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue[500],

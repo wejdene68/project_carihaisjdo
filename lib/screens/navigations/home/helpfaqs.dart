@@ -9,7 +9,6 @@ class HelpFaqsPage extends StatefulWidget {
 
 class _HelpFaqsPageState extends State<HelpFaqsPage>
     with SingleTickerProviderStateMixin {
-  // Sample FAQs - you can customize the questions and answers here
   final List<Map<String, String>> _faqs = [
     {
       "question": "How do I add a new medical record?",
@@ -56,7 +55,6 @@ class _HelpFaqsPageState extends State<HelpFaqsPage>
     super.dispose();
   }
 
-  // Widget for each FAQ card with animation & expansion
   Widget _buildFaqItem(Map<String, String> faq, int index) {
     return FadeTransition(
       opacity: CurvedAnimation(
@@ -89,7 +87,6 @@ class _HelpFaqsPageState extends State<HelpFaqsPage>
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // ignore: deprecated_member_use
         elevation: 0,
         title: Text(
           "Help & FAQs",
@@ -104,7 +101,6 @@ class _HelpFaqsPageState extends State<HelpFaqsPage>
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background image with blue overlay
           Image.asset(
             "assets/img/BR1.jpg",
             fit: BoxFit.cover,
@@ -194,7 +190,6 @@ class _ExpandableFaqCardState extends State<_ExpandableFaqCard>
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
-            // 3D shadow effect
             BoxShadow(
               // ignore: deprecated_member_use
               color: blue400.withOpacity(0.3),

@@ -151,8 +151,6 @@ class _NursingServicesPageState extends State<NursingServicesPage> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-
-              // 3D DropdownBox
               Container(
                 decoration: BoxDecoration(
                   boxShadow: [
