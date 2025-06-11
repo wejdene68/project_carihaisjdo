@@ -55,7 +55,6 @@ class _AccountScreenState extends State<AccountScreen>
     _scaleAnimation =
         Tween<double>(begin: 1.0, end: 0.95).animate(_buttonController);
 
-    // Trigger animations after first build
     Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         _isAnimated = true;
