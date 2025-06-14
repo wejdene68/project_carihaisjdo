@@ -28,8 +28,7 @@ class _AppointmentsPageState extends State<AppointmentsPage>
       "time": "2:00 PM",
       "location": "Vision Center, 5th Avenue"
     },
-  ];
-
+  ]; 
   @override
   void initState() {
     super.initState();
