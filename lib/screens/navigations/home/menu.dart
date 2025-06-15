@@ -3,7 +3,6 @@ import 'package:crohn/screens/navigations/home/doctors.dart';
 import 'package:crohn/screens/navigations/home/helpfaqs.dart';
 import 'package:crohn/screens/navigations/home/medical_records.dart';
 import 'package:flutter/material.dart';
-import 'package:crohn/screens/navigations/setting.dart';
 
 class MenuWidget extends StatelessWidget {
   final VoidCallback onLogout;
