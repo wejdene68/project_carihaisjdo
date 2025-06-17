@@ -1,6 +1,6 @@
 import 'dart:ui';
-import 'package:crohn/utils/firebase_services.dart';
-import 'package:crohn/utils/sp.dart';
+import 'package:crohn/core/utils/firebase_services.dart';
+import 'package:crohn/core/utils/sp.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crohn/screens/auth/auth.dart';

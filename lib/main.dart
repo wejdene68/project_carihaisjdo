@@ -7,7 +7,7 @@ import 'package:crohn/screens/navigations/homescreen.dart';
 import 'package:crohn/screens/navigations/message.dart';
 import 'package:crohn/screens/navigations/account.dart';
 import 'package:crohn/screens/navigations/setting.dart';
-import 'package:crohn/utils/sp.dart';
+import 'package:crohn/core/utils/sp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:crohn/screens/navigations/usermodel.dart';

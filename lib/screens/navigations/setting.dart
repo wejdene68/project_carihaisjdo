@@ -1,4 +1,3 @@
-import 'package:crohn/screens/navigations/homescreen.dart';
 import 'package:crohn/screens/navigations/setting/appointments_page.dart';
 import 'package:crohn/screens/navigations/setting/doctor_contacts_page.dart';
 import 'package:crohn/screens/navigations/setting/health_tips_page.dart';
@@ -331,39 +330,39 @@ class _SettingScreenState extends State<SettingScreen>
   //   );
   // }
 
-  Widget backButtonBubble() {
-    return Positioned(
-      top: 50,
-      left: 20,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (_) => const HomeScreen(
-                      userName: '',
-                    )),
-          );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: const BoxDecoration(
-            color: Colors.white70,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 10,
-                offset: Offset(0, 6),
-              ),
-            ],
-          ),
-          child: const Icon(Icons.arrow_back_ios_new,
-              size: 24, color: Colors.blue),
-        ),
-      ),
-    );
-  }
+  // Widget backButtonBubble() {
+  //   return Positioned(
+  //     top: 50,
+  //     left: 20,
+  //     child: GestureDetector(
+  //       onTap: () {
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //               builder: (_) => const HomeScreen(
+  //                     userName: '',
+  //                   )),
+  //         );
+  //       },
+  //       child: Container(
+  //         padding: const EdgeInsets.all(12),
+  //         decoration: const BoxDecoration(
+  //           color: Colors.white70,
+  //           shape: BoxShape.circle,
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.black12,
+  //               blurRadius: 10,
+  //               offset: Offset(0, 6),
+  //             ),
+  //           ],
+  //         ),
+  //         child: const Icon(Icons.arrow_back_ios_new,
+  //             size: 24, color: Colors.blue),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -382,11 +381,10 @@ class _SettingScreenState extends State<SettingScreen>
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 75),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Row(
@@ -453,7 +451,6 @@ class _SettingScreenState extends State<SettingScreen>
               ),
             ),
           ),
-          backButtonBubble(),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:crohn/screens/navigations/usermodel.dart';
-import 'package:crohn/utils/sp.dart';
+import 'package:crohn/core/utils/sp.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 

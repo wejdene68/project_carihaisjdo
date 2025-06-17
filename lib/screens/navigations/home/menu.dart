@@ -4,11 +4,16 @@ import 'package:crohn/screens/navigations/home/helpfaqs.dart';
 import 'package:crohn/screens/navigations/home/medical_records.dart';
 import 'package:flutter/material.dart';
 
-class MenuWidget extends StatelessWidget {
-  final VoidCallback onLogout;
+class MenuWidget extends StatefulWidget {
+  const MenuWidget({
+    super.key,
+  });
 
-  const MenuWidget({super.key, required this.onLogout});
+  @override
+  State<MenuWidget> createState() => _MenuWidgetState();
+}
 
+class _MenuWidgetState extends State<MenuWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -36,11 +41,14 @@ class MenuWidget extends StatelessWidget {
             ),
             padding: const EdgeInsets.only(top: 50, bottom: 30, left: 20),
             width: double.infinity,
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.menu, size: 30, color: Colors.white),
-                SizedBox(width: 16),
-                Text(
+                IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.white),
+                  onPressed: () {},
+                ),
+                const SizedBox(width: 16),
+                const Text(
                   'Menu',
                   style: TextStyle(
                     fontSize: 26,
@@ -113,14 +121,6 @@ class MenuWidget extends StatelessWidget {
                         builder: (context) => const HelpFaqsPage(),
                       ),
                     );
-                  },
-                ),
-                _buildAnimatedTile(
-                  icon: Icons.logout,
-                  label: 'Logout',
-                  onTap: () {
-                    Navigator.pop(context);
-                    onLogout();
                   },
                 ),
               ],

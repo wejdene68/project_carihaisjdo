@@ -1,5 +1,5 @@
-import 'package:crohn/utils/firebase_services.dart';
-import 'package:crohn/utils/sp.dart';
+import 'package:crohn/core/utils/firebase_services.dart';
+import 'package:crohn/core/utils/sp.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';

@@ -83,17 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String userName = '${widget.userName.split(' ').first}!';
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color(0xFFF4F9F9),
-      drawer: MenuWidget(onLogout: logout),
+      drawer: const MenuWidget(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text(
-          'HELLO_CROHN',
-          style: TextStyle(
+        title: Text(
+          'Hello $userName',
+          style: const TextStyle(
             color: Colors.blue,
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -138,8 +140,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.all(20),
                             child: Image.asset(
                               'assets/img/1erp.webp',
-                              height: 100,
-                              width: 120,
                               fit: BoxFit.fitWidth,
                             ),
                           ),
