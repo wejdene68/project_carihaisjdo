@@ -18,12 +18,57 @@ class _MessageScreenState extends State<MessageScreen> {
   bool _isTyping = false;
   String? _currentConversationId;
   bool _isViewingHistory = false;
+  String?
+      _previousConversationId; // Track previous state before entering history
+
+  @override
+  void initState() {
+    super.initState();
+    _createNewConversationOnAppStart();
+  }
+
+  void _createNewConversationOnAppStart() async {
+    // Create a new conversation when app starts
+    final newConversationId = await _chatService.createNewConversation();
+    setState(() {
+      _currentConversationId = newConversationId;
+      _isViewingHistory = false;
+    });
+  }
 
   void _startNewConversation() async {
     setState(() {
       _currentConversationId = null;
       _isViewingHistory = false;
     });
+  }
+
+  void _createNewConversation() async {
+    final newConversationId = await _chatService.createNewConversation();
+    setState(() {
+      _currentConversationId = newConversationId;
+      _isViewingHistory = false;
+    });
+  }
+
+  void _goBackToRecentConversation() async {
+    // Restore the previous state before entering history
+    if (_previousConversationId != null) {
+      // If we had a previous conversation, restore it
+      setState(() {
+        _currentConversationId = _previousConversationId;
+        _isViewingHistory = false;
+      });
+    } else {
+      // If we didn't have a previous conversation, create a new one
+      final newConversationId = await _chatService.createNewConversation();
+      setState(() {
+        _currentConversationId = newConversationId;
+        _isViewingHistory = false;
+      });
+    }
+    // Clear the previous conversation ID
+    _previousConversationId = null;
   }
 
   void _viewConversation(String conversationId) {
@@ -39,7 +84,9 @@ class _MessageScreenState extends State<MessageScreen> {
     });
   }
 
-  void _continueCurrentChat() {
+  void _continueCurrentChat() async {
+    // Start a new conversation when user wants to continue chatting
+    _currentConversationId = await _chatService.createNewConversation();
     setState(() {
       _isViewingHistory = false;
     });
@@ -67,8 +114,14 @@ class _MessageScreenState extends State<MessageScreen> {
       _currentConversationId = await _chatService.createNewConversation();
     }
 
-    // Send user message
-    await _chatService.sendMessage(_currentConversationId!, text, true);
+    // Send user message and get the actual conversation ID
+    final actualConversationId =
+        await _chatService.sendMessage(_currentConversationId!, text, true);
+
+    // Update conversation ID if it was a temporary one
+    if (actualConversationId != _currentConversationId) {
+      _currentConversationId = actualConversationId;
+    }
 
     // Get AI response
     final response = await _chatService.getAIResponse(text);
@@ -246,16 +299,6 @@ class _MessageScreenState extends State<MessageScreen> {
               'Start a new conversation',
               style: TextStyle(color: Colors.grey[600]),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: _startNewConversation,
-              icon: const Icon(Icons.add),
-              label: const Text('New Chat'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[300],
-                foregroundColor: Colors.white,
-              ),
-            ),
           ],
         ),
       );
@@ -336,7 +379,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     ElevatedButton.icon(
                       onPressed: _continueCurrentChat,
                       icon: const Icon(Icons.chat),
-                      label: const Text('Continue Chat'),
+                      label: const Text('Start New Chat'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[300],
                         foregroundColor: Colors.white,
@@ -375,20 +418,28 @@ class _MessageScreenState extends State<MessageScreen> {
                   leading: _isViewingHistory
                       ? IconButton(
                           icon: const Icon(Icons.arrow_back),
-                          onPressed: _startNewConversation,
+                          onPressed: _goBackToRecentConversation,
                         )
                       : null,
                   actions: [
-                    if (!_isViewingHistory)
+                    if (!_isViewingHistory) ...[
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: _createNewConversation,
+                        tooltip: 'New Chat',
+                      ),
                       IconButton(
                         icon: const Icon(Icons.history),
                         onPressed: () {
                           setState(() {
+                            _previousConversationId = _currentConversationId;
                             _currentConversationId = null;
                             _isViewingHistory = true;
                           });
                         },
+                        tooltip: 'Chat History',
                       ),
+                    ],
                   ],
                   elevation: 0,
                 ),

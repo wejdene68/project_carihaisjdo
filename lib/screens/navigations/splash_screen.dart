@@ -98,22 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: const MedicalLogo(),
             ),
             const SizedBox(height: 30),
-            // App name with slide and fade animation
-            SlideTransition(
-              position: _slideAnimation,
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: const Text(
-                  'Crohn',
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2E7D32), // Medical green
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
+
             // Tagline with slide and fade animation
             SlideTransition(
               position: _slideAnimation,
@@ -126,14 +111,6 @@ class _SplashScreenState extends State<SplashScreen>
                     color: Colors.grey,
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 50),
-            // Loading indicator with fade animation
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
               ),
             ),
           ],
@@ -162,10 +139,9 @@ class MedicalLogo extends StatelessWidget {
             // Pulse animation
             const PulsatingCircle(),
             // Medical cross icon
-            Icon(
-              Icons.medical_services,
-              size: 60,
-              color: Theme.of(context).primaryColorDark,
+            CircleAvatar(
+              backgroundImage: AssetImage('assets/Crohn-Logo.png'),
+              radius: 50,
             ),
           ],
         ),
@@ -217,7 +193,8 @@ class _PulsatingCircleState extends State<PulsatingCircle>
         height: 100,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: const Color(0xFFC8E6C9).withValues(alpha: 0.5),
+          color:
+              const Color.fromARGB(255, 200, 217, 230).withValues(alpha: 0.5),
         ),
       ),
     );

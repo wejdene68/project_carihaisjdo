@@ -1,4 +1,4 @@
-package com.example.crohn
+package app.rbhdev.crohn
 
 import io.flutter.embedding.android.FlutterActivity
 

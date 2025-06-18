@@ -66,7 +66,7 @@ class ChatService {
     });
   }
 
-  // Create a new conversation
+  // Create a new conversation (temporary, only saved when first message is sent)
   Future<String> createNewConversation() async {
     final userId = _auth.currentUser?.uid;
     if (userId == null) throw Exception('User not authenticated');
@@ -74,28 +74,15 @@ class ChatService {
     // Fetch API config when starting a new conversation
     await _getApiConfig();
 
-    final conversation = Conversation(
-      id: '',
-      title: 'AI Chat ${DateTime.now().toString()}',
-      createdAt: DateTime.now(),
-      lastMessageAt: DateTime.now(),
-      messages: [],
-    );
-
-    final docRef = await _firestore
-        .collection('users')
-        .doc(userId)
-        .collection('conversations')
-        .add(conversation.toMap());
-
-    return docRef.id;
+    // Return a temporary ID that will be replaced when first message is sent
+    return 'temp_${DateTime.now().millisecondsSinceEpoch}';
   }
 
   // Send message to a conversation
-  Future<void> sendMessage(
+  Future<String> sendMessage(
       String conversationId, String text, bool isUser) async {
     final userId = _auth.currentUser?.uid;
-    if (userId == null) return;
+    if (userId == null) return conversationId;
 
     final message = ChatMessage(
       id: '',
@@ -105,12 +92,35 @@ class ChatService {
       isUser: isUser,
     );
 
+    // Check if this is a temporary conversation (first message)
+    bool isTemporaryConversation = conversationId.startsWith('temp_');
+    String actualConversationId = conversationId;
+
+    if (isTemporaryConversation) {
+      // Create the conversation in Firestore for the first time
+      final conversation = Conversation(
+        id: '',
+        title: 'AI Chat ${DateTime.now().toString()}',
+        createdAt: DateTime.now(),
+        lastMessageAt: DateTime.now(),
+        messages: [],
+      );
+
+      final docRef = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('conversations')
+          .add(conversation.toMap());
+
+      actualConversationId = docRef.id;
+    }
+
     // Add message to conversation
     await _firestore
         .collection('users')
         .doc(userId)
         .collection('conversations')
-        .doc(conversationId)
+        .doc(actualConversationId)
         .collection('messages')
         .add(message.toMap());
 
@@ -119,10 +129,12 @@ class ChatService {
         .collection('users')
         .doc(userId)
         .collection('conversations')
-        .doc(conversationId)
+        .doc(actualConversationId)
         .update({
       'lastMessageAt': Timestamp.fromDate(DateTime.now()),
     });
+
+    return actualConversationId;
   }
 
   // Call your custom API
@@ -134,22 +146,34 @@ class ChatService {
       final response = await http.post(
         Uri.parse(apiConfig.fullEndpoint),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          "contents": [
-            {
-              "parts": [
-                {"text": "Explain how AI works in a few words"}
-              ]
-            }
-          ]
-        }),
+        body: jsonEncode({"question": userMessage}),
       );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data != null) {
-          return data['candidates'][0]['content']['parts'][0]['text'] ??
-              'Sorry, I could not process your request.';
+          // Handle sources as a list of strings
+          String sourcesText = '';
+          if (data['sources'] != null) {
+            if (data['sources'] is List) {
+              sourcesText = (data['sources'] as List).join(', ');
+            } else {
+              sourcesText = data['sources'].toString();
+            }
+          }
+
+          // Clean up the answer by removing context information
+          String cleanAnswer = data['answer'] ?? '';
+
+          // Remove context information that starts with "Context:" or "Question"
+          if (cleanAnswer.contains('Context:')) {
+            cleanAnswer = cleanAnswer.split('Context:')[0].trim();
+          }
+          if (cleanAnswer.contains('Question')) {
+            cleanAnswer = cleanAnswer.split('Question')[0].trim();
+          }
+
+          return '$cleanAnswer \n\n Sources: $sourcesText';
         } else {
           return 'Error: API request was not successful';
         }
